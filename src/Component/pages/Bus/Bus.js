@@ -9,14 +9,24 @@ const {bus_details}=useSelector(
     (state)=>state.
     bus_details
 );
+
  console.log(bus_details);
 useEffect (()=>{
     dispatch(bus_detailAction())
 },[]);
 
-  return (
-    <div>Bus</div>
-  )
-}
+// bus_details.map((obj)=>{
+//     console.log(obj)
+// })
+
+return (
+    <div>
+        {bus_details.map((bus) => (
+            <div key={bus.id}>{bus.busName}</div>
+        ))}
+    </div>
+);
+
+};
 
 export default Bus
