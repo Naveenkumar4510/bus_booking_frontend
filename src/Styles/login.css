@@ -1,0 +1,18 @@
+.login-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+}
+
+.login-form{
+  width:300px;
+  padding: 20px;
+  border: 2px solid whitesmoke;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius:5px;
+
+}
+.form-group{
+  padding-bottom: 20px;
+}
