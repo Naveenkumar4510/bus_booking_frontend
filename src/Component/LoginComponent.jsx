@@ -43,7 +43,11 @@ const handleSubmit = async (e) => {
 // />
 // </Form.Group>
 //     </Form>
+<<<<<<< HEAD
 <div className='login-container bg-gray-200'>
+=======
+<div className='login-container'>
+>>>>>>> dbe7ae9d90362eb2079ab32e9d2cd1c1ff94a972
 <Form onSubmit={handleSubmit}m className='login-form'>
 <h4>Login Form
 </h4>
@@ -66,7 +70,11 @@ const handleSubmit = async (e) => {
     onChange={(e) => setPassword(e.target.value)} // Update password state variable
   />
 </Form.Group>
+<<<<<<< HEAD
     <Button variant="primary" type="submit">
+=======
+ <Button variant="primary" type="submit">
+>>>>>>> dbe7ae9d90362eb2079ab32e9d2cd1c1ff94a972
         Submit
       </Button>
     </Form>
