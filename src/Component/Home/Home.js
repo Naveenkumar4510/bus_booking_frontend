@@ -1,12 +1,16 @@
 import React from 'react'
-import { Nav, Navbar } from 'react-bootstrap'
+import  Navbar  from '../Navbar/Navbar.js'
 import Footer from '../Footer/Footer'
 
 const Home = () => {
-  
+  <Navbar/>
   return (
 
-    <div>Home</div>
+    <div>
+      <Navbar/>
+      Home
+      <Footer/>
+      </div>
   )
   
 }
