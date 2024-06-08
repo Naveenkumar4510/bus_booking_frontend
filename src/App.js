@@ -2,13 +2,15 @@
 import './App.css';
 import Admincomponent from './Component/AdminComponent';
 import LoginComponent from './Component/LoginComponent';
+import Bus from './Component/pages/Bus/Bus';
 
 
 
 function App() {
   return (
     <div className="App">
-  <LoginComponent />
+      <Bus />
+  {/* <LoginComponent /> */}
 {/* <Admincomponent /> */}
       
     </div>

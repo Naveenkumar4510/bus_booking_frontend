@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form'
 import { Button } from 'react-bootstrap';
 import { loginadmin } from '../Services/LoginService';
 import '../Styles/login.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { bus_detailAction } from '../redux/action/bus';
 const LoginComponent = () => {
+
+  const dispatch=useDispatch()
+  const {   bus_details } = useSelector(
+    (state) => state.bus_details
+  );
 
 const [username,setUsername]=useState('');
 const [password,setPassword]=useState('');
+
+console.log(bus_details);
 
 
 
@@ -19,6 +28,11 @@ const [password,setPassword]=useState('');
 // console.log('Login failed',error);
 //   }
 // }
+
+useEffect(()=>{
+  dispatch(bus_detailAction())
+
+},[])
 
 
 const handleSubmit = async (e) => {
@@ -43,11 +57,7 @@ const handleSubmit = async (e) => {
 // />
 // </Form.Group>
 //     </Form>
-<<<<<<< HEAD
 <div className='login-container bg-gray-200'>
-=======
-<div className='login-container'>
->>>>>>> dbe7ae9d90362eb2079ab32e9d2cd1c1ff94a972
 <Form onSubmit={handleSubmit}m className='login-form'>
 <h4>Login Form
 </h4>
@@ -70,11 +80,7 @@ const handleSubmit = async (e) => {
     onChange={(e) => setPassword(e.target.value)} // Update password state variable
   />
 </Form.Group>
-<<<<<<< HEAD
     <Button variant="primary" type="submit">
-=======
- <Button variant="primary" type="submit">
->>>>>>> dbe7ae9d90362eb2079ab32e9d2cd1c1ff94a972
         Submit
       </Button>
     </Form>

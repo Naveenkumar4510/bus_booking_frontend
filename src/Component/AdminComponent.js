@@ -20,15 +20,17 @@ const Admincomponent = () => {
   const [buses,setBus]=useState([]);
 
 
-  useEffect(()=>{
-    listBuses()
-    .then((result) => {
-      setBus(result.data)
-    }).catch((err) => {
-      console.error("Error ")
-    });
+  // useEffect(()=>{
+  //   listBuses()
+  //   .then((result) => {
+  //     setBus(result.data)
+  //   }).catch((err) => {
+  //     console.error("Error ")
+  //   });
   
-  },[])
+  // },[])
+
+
   
     return (
       <div className='container'>

@@ -1,11 +1,12 @@
-import { bus_detail } from './action/bus';
+
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import { busreducer } from './reducer/bus';
-import thunk from 'redux-thunk'
+import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { busreducer } from './reducer/bus';
+
 const reducer=combineReducers(
     {
-bus_detail:busreducer
+      bus_details:busreducer
     }
 
 )
