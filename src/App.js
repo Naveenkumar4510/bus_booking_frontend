@@ -9,24 +9,29 @@ import { Navbar } from "./Component/Navbar/Navbar";
 import { Footer } from "./Component/Footer/Footer";
 import Register from "./Component/pages/Register/Register";
 import Login from "./Component/pages/Login/Login";
+import PublicLayout from "./Layout/PublicLayout";
 
 function App() {
   return (
     <div className="App">
      
       <Routes>
-        <Route element={<Home />} path="/"></Route>
-        <Route element={<Bus />} path="/bus">
-          {" "}
-        </Route>
+        <Route element={<PublicLayout/>  } path="">
+        <Route element={<Home />} path={`${process.env.PUBLIC_URL}/`}></Route> 
+          <Route element={<Home />} path="/home"></Route>
+       
+       
         <Route element={<Register/> }path="/register"></Route>
 
         <Route element={<Login/> }path="/login"></Route>
-
+        </Route>
         {/* <div className="App"> */}
         {/* <LoginComponent /> */}
         {/* <Admincomponent /> */}
         {/* </div> */}
+        <Route element={<Bus />} path="/bus">
+          {" "}
+        </Route>
       </Routes>
      
     </div>

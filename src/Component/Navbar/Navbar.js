@@ -11,8 +11,10 @@ const Navbar = () => {
       ">
         <div className="flex space-x-3 justify-between">
           <div className="flex space-x-4 text-orange-400">
-            <span className="text-2xl text-bold ml-4
-          ">EasyBus </span><span className="text-2xl py-2"><FaBusAlt /></span></div>
+            <a className="text-2xl text-bold ml-4 text-orange-400 cursor-pointer no-underline
+          " onClick={()=>navigate({
+            pathname: `${process.env.PUBLIC_URL}/`,
+          })}>EasyBus </a><span className="text-2xl py-2"><FaBusAlt /></span></div>
           <div className="cursor-pointer text-lg ">
             <a  className="text-orange-400 no-underline" onClick={()=>navigate
               ({

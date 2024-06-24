@@ -1,8 +1,14 @@
 import React from 'react'
+const date=new Date();
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <div className='border-t'>
+<div>
+  {date.getFullYear()} @ EasyBus
+</div>
+
+    </div>
   )
 }
 

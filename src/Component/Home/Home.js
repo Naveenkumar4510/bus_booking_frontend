@@ -42,7 +42,7 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div>
         <div className="bg-white">
           <div className="flex space-x-4 mt-5 p-5">
