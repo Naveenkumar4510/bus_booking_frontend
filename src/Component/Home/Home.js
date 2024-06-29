@@ -4,6 +4,7 @@ import Footer from "../Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { bus_detailAction } from "../../redux/action/bus.js";
 import { eventWrapper } from "@testing-library/user-event/dist/utils/index.js";
+import bus_img from '../../assets/home/Man buying bus ticket via terminal.jpg'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -43,13 +44,15 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div>
-        <div className="bg-white">
-          <div className="flex space-x-4 mt-5 p-5">
+      
+        <div className="relative bg-white">
+        <img src={bus_img} alt="bus_image" className="absolute inset-0 w-full h-full object-cover"></img>
+        <div className="relative z-10 p-5 "> 
+          <div className="flex space-x-4 relative bg-white bg-opacity-90 rounded-lg shadow-lg   mt-5 p-5">
             <div>
               From<input type="text"  value={fromDestination}
                 onChange={handlefromchange}
-                className="p-2 ml-2"></input>
+                className="p-2 ml-2 block"></input>
             </div>
             <div>
               To
@@ -65,6 +68,7 @@ const Home = () => {
             </div>
             <button className="bg-orange-400 rounded-lg text-white p-2" onClick={handlSearchfilter}>Search</button>
           </div>
+          
 
           <div className="p-5">
           {filteredBus.length > 0 ? (
@@ -83,6 +87,7 @@ const Home = () => {
         </div>
         </div>
       </div>
+     
       {/* <Footer/> */}
     </div>
   );
