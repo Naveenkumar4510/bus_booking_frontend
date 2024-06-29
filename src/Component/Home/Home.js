@@ -43,19 +43,12 @@ const Home = () => {
 
   return (
     <div>
-<<<<<<< HEAD
       <Navbar />
       
         <div className="relative bg-white">
         <img src={bus_img} alt="bus_image" className="absolute inset-0 w-full h-full object-cover"></img>
         <div className="relative z-10 p-5 "> 
           <div className="flex space-x-4 relative bg-white bg-opacity-90 rounded-lg shadow-lg   mt-5 p-5">
-=======
-      {/* <Navbar /> */}
-      <div>
-        <div className="bg-white">
-          <div className="flex space-x-4 mt-5 p-5">
->>>>>>> 488bdcbf457a21725df7282e659532d1df007193
             <div>
               From<input type="text"  value={fromDestination}
                 onChange={handlefromchange}
