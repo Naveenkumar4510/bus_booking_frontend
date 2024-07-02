@@ -10,6 +10,7 @@ import { Footer } from "./Component/Footer/Footer";
 import Register from "./Component/pages/Register/Register";
 import Login from "./Component/pages/Login/Login";
 import PublicLayout from "./Layout/PublicLayout";
+import AddBus from "./Component/pages/Bus/AddBus";
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
         {/* <Admincomponent /> */}
         {/* </div> */}
         <Route element={<Bus />} path="/bus">
+          {" "}
+        </Route>
+        <Route element={<AddBus />} path="/addbus">
           {" "}
         </Route>
       </Routes>

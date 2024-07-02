@@ -4,13 +4,16 @@ import Footer from "../Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { bus_detailAction } from "../../redux/action/bus.js";
 import { eventWrapper } from "@testing-library/user-event/dist/utils/index.js";
-import bus_img from '../../assets/home/Man buying bus ticket via terminal.jpg'
+import bus_img from '../../assets/home/Man buying bus ticket via terminal.jpg';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Home = () => {
   const dispatch = useDispatch();
   const { bus_details } = useSelector((state) => state.bus_details);
   const [fromDestination, setFromDes] = useState("");
   const [toDestination, setToDestiation] = useState("");
+  const [date, setDate] = useState(null);
   const [filteredBus, setfilterBus] = useState([]);
   const [searchPerform,setSearchPerformed]=useState(false);
 
@@ -25,13 +28,53 @@ const Home = () => {
   const handleTochange = (event) => {
     setToDestiation(event.target.value);
   };
+
+  const handleDatechange = (event) => {
+    setDate(event.target.value);
+  };
 //filter for search button
   const handlSearchfilter = () => {
     const filtered_data = bus_details.filter((bus) => {
+      // console.log(bus.departureTime);
+      // console.log(bus.source);
+      const busDate = Date.parse(bus.departureTime) ? new Date(bus.departureTime) : null;
+
+      if (!busDate) {
+        console.error(`Invalid date format for bus departure time: ${bus.departureTime}`);
+        return false; // Skip this bus if the date format is invalid
+      }
+
+       // Log values for debugging
+    console.log('Bus Source:', bus.source);
+    console.log('Bus Destination:', bus.destination);
+    console.log('From Destination:', fromDestination);
+    console.log('To Destination:', toDestination);
+    console.log('Selected Date:', date);
+      
+      // const busDate = new Date(bus.departureTime).toISOString().split('T')[0];
+      // const busDate = new Date(bus.departureTime);
+
+      
+      // const selectedDateISOString = date ? new Date(date).toISOString().split('T')[0] : null;
+      const formattedBusDate = busDate.toISOString().split('T')[0];
+
+      const formattedSelectedDate = date ? new Date(date).toISOString().split('T')[0] : null;
+      // const busDate = new Date(bus.departureTime); // Assuming bus.departureTime is in a compatible format
+      // console.log('Bus Departure Time:', busDate);
+
+      // Convert selected date (if available) to ISO string for comparison
+      // const selectedDateISOString = date ? new Date(date).toISOString().split('T')[0] : null;
+  
+      // console.log(filtered_data);
+
+    
       return (
         bus.source.toLowerCase().includes(fromDestination.toLowerCase()) &&
-        bus.destination.toLowerCase().includes(toDestination.toLowerCase())
+        bus.destination.toLowerCase().includes(toDestination.toLowerCase()) && 
+        // (!date || busDate.toISOString().split('T')[0] === selectedDateISOString)
+        (!date || formattedBusDate === formattedSelectedDate)
       );
+      console.log("filtered data",filtered_data);
     });
   
     setfilterBus(filtered_data);
@@ -39,34 +82,50 @@ const Home = () => {
     setSearchPerformed(true);
   };
 
-  // console.log(filtered_data);
+ 
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       
         <div className="relative bg-white">
-        <img src={bus_img} alt="bus_image" className="absolute inset-0 w-full h-full object-cover"></img>
+        <img src={bus_img} alt="bus_image" className="absolute inset-0 w-full  h-full object-cover border-b"></img>
         <div className="relative z-10 p-5 "> 
-          <div className="flex space-x-4 relative bg-white bg-opacity-90 rounded-lg shadow-lg   mt-5 p-5">
+          <div className="flex space-x-4 relative w-full bg-white bg-opacity-90  shadow-lg   mt-5 p-5">
             <div>
               From<input type="text"  value={fromDestination}
                 onChange={handlefromchange}
-                className="p-2 ml-2 block"></input>
+                className=" ml-2 px-5 py-3"></input>
             </div>
             <div>
               To
               <input
                 type="text"
-                className="p-2 ml-2"
+                className=" ml-2 px-5 py-3"
                 value={toDestination}
                 onChange={handleTochange}
               ></input>
             </div>
+
             <div>
-              {/* Date<input type="date" className="p-2 ml-2"></input> */}
+              Date
+              {/* <input
+                type="Date"
+                className=" ml-2 px-5 py-3"
+                value={date}
+                onChange={handleDatechange}
+              ></input> */}
+
+              <DatePicker
+                selected={date}
+                onChange={(date) => setDate(date)}
+                className="ml-2 px-5 py-3"
+                placeholderText="Select a date"
+                dateFormat="yyyy-MM-dd"
+              />
             </div>
-            <button className="bg-orange-400 rounded-lg text-white p-2" onClick={handlSearchfilter}>Search</button>
+           
+            <a className="bg-orange-400 rounded-lg inline-fflex items-center justify-center text-center uppercase text-white shadow-2xl px-5 h-15 w-40 py-3  no-underline" onClick={handlSearchfilter}><span>Search</span></a>
           </div>
           
 
