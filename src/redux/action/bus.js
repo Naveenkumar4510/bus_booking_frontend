@@ -21,15 +21,15 @@ export const bus_detailAction = () => async (dispatch) => {
   }
 };
 
-export const add_bus_details = () => async (dispatch) => {
+export const add_bus_details = (adddata) => async (dispatch) => {
   try {
     dispatch({ type: BUS_ADD_BEGIN });
-    const config = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
-    const { data } = await Auth.post("/bus",config);
+    // const config = {
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     }
+    //   };
+    const { data } = await Auth.post("/bus",adddata);
     dispatch({ type: BUS_ADD_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: BUS_ADD_ERROR });

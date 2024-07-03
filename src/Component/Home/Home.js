@@ -4,14 +4,10 @@ import Footer from "../Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { bus_detailAction } from "../../redux/action/bus.js";
 import { eventWrapper } from "@testing-library/user-event/dist/utils/index.js";
-<<<<<<< HEAD
-import bus from '../../assets/images/bus.jpg'
-=======
 import bus_img from '../../assets/home/Man buying bus ticket via terminal.jpg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
->>>>>>> 225ae41fdb222a54a210e69b1d5a83993e6ab37c
 const Home = () => {
   const dispatch = useDispatch();
   const { bus_details } = useSelector((state) => state.bus_details);
@@ -91,23 +87,11 @@ const Home = () => {
   return (
     <div>
       {/* <Navbar /> */}
-<<<<<<< HEAD
-      <div>
-       
-        
-        <div className="bg-white">
-         <div className="px-20 mx-20">
-         <img  className="object-fit" src={bus}/> 
-        
-          <div className="flex space-x-4 mt-5 p-5 bg-gray-300">
-            
-=======
       
         <div className="relative bg-white">
         <img src={bus_img} alt="bus_image" className="absolute inset-0 w-full  h-full object-cover border-b"></img>
         <div className="relative z-10 p-5 "> 
           <div className="flex space-x-4 relative w-full bg-white bg-opacity-90  shadow-lg   mt-5 p-5">
->>>>>>> 225ae41fdb222a54a210e69b1d5a83993e6ab37c
             <div>
               
               From<input type="text"  value={fromDestination}
@@ -163,11 +147,7 @@ const Home = () => {
         </div>
         </div>
       </div>
-<<<<<<< HEAD
-      </div>
-=======
      
->>>>>>> 225ae41fdb222a54a210e69b1d5a83993e6ab37c
       {/* <Footer/> */}
     </div>
   );
