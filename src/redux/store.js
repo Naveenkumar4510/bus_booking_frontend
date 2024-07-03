@@ -2,11 +2,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { busreducer } from './reducer/bus';
+import { busreducer,bus_add_reducer } from './reducer/bus';
 
 const reducer=combineReducers(
     {
-      bus_details:busreducer
+      bus_details:busreducer,
+      bus_add_state:bus_add_reducer
     }
 
 )

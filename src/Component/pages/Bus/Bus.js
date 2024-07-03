@@ -6,6 +6,7 @@ const Bus = () => {
   const dispatch = useDispatch();
 
   const { bus_details } = useSelector((state) => state.bus_details);
+  
 
   console.log(bus_details);
   useEffect(() => {
