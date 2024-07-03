@@ -4,7 +4,7 @@ import Footer from "../Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { bus_detailAction } from "../../redux/action/bus.js";
 import { eventWrapper } from "@testing-library/user-event/dist/utils/index.js";
-
+import bus from '../../assets/images/bus.jpg'
 const Home = () => {
   const dispatch = useDispatch();
   const { bus_details } = useSelector((state) => state.bus_details);
@@ -44,9 +44,16 @@ const Home = () => {
     <div>
       {/* <Navbar /> */}
       <div>
+       
+        
         <div className="bg-white">
-          <div className="flex space-x-4 mt-5 p-5">
+         <div className="px-20 mx-20">
+         <img  className="object-fit" src={bus}/> 
+        
+          <div className="flex space-x-4 mt-5 p-5 bg-gray-300">
+            
             <div>
+              
               From<input type="text"  value={fromDestination}
                 onChange={handlefromchange}
                 className="p-2 ml-2"></input>
@@ -82,6 +89,7 @@ const Home = () => {
           )}
         </div>
         </div>
+      </div>
       </div>
       {/* <Footer/> */}
     </div>
