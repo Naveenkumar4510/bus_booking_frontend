@@ -11,6 +11,8 @@ import Register from "./Component/pages/Register/Register";
 import Login from "./Component/pages/Login/Login";
 import PublicLayout from "./Layout/PublicLayout";
 import AddBus from "./Component/pages/Bus/AddBus";
+import ViewBus from "./Component/pages/Bus/ViewBus";
+import EditBus from "./Component/pages/Bus/EditBus";
 
 function App() {
   return (
@@ -35,6 +37,15 @@ function App() {
           {" "}
         </Route>
         <Route element={<AddBus />} path="/addbus">
+          {" "}
+        </Route>
+
+        <Route element={<ViewBus />} path="/viewbus">
+          {" "}
+        </Route>
+
+        
+        <Route element={<EditBus />} path="/editbus">
           {" "}
         </Route>
       </Routes>
