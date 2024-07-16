@@ -11,7 +11,10 @@ import {
   BUS_EDIT_ERROR,
   BUS_DELETE_BEGIN,
   BUS_DELETE_SUCCESS,
-  BUS_DELETE_ERROR
+  BUS_DELETE_ERROR,
+  BUS_GET_BUS_BY_NO_BEGIN,
+  BUS_GET_BUS_BY_NO_SUCCESS,
+  BUS_GET_BUS_BY_NO_ERROR
   
 } from "../constant/bus/bus";
 import { Auth } from "../config";
@@ -57,4 +60,28 @@ export const edit_bus_detail =(busId,editData) =>async(dispatch)=>{
     dispatch({type:BUS_EDIT_ERROR})
   }
 
+}
+
+export const fetch_bus_detail =(busId)=>async(dispatch)=>{
+  try{
+    dispatch({type:BUS_GET_BUS_BY_NO_BEGIN});
+
+    const {data}=await Auth.get(`/bus/${busId}`);
+    dispatch({type:BUS_GET_BUS_BY_NO_SUCCESS,payload:data})
+  }
+  catch(error){
+    dispatch({type:BUS_GET_BUS_BY_NO_ERROR})
+  }
+}
+
+
+export const delete_bus_by_number =(busId)=>async(dispatch)=>{
+  try{
+dispatch({type:BUS_DELETE_BEGIN});
+const {data}=await Auth.delete(`/bus/${busId}`);
+    dispatch({type:BUS_DELETE_SUCCESS,payload:data})
+  }
+  catch(error){
+    dispatch({type:BUS_DELETE_ERROR})
+  }
 }

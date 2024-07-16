@@ -37,11 +37,13 @@ return (
           <div key={bus.id} className="w-full md:w-1/2 lg:w-1/3 bg-white shadow-md rounded-lg p-4">
             <ul>
               <li>{bus.busName}</li>
+              <li>{bus.id}</li>
               <li>{bus.busNumber}</li>
               <li>{bus.source}</li>
               <li>{bus.destination}</li>
               <li>{bus.arrivalTime}</li>
               <li>{bus.departureTime}</li>
+              <a></a>
             </ul>
           </div>
         ))
