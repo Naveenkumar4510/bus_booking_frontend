@@ -75,10 +75,11 @@ export const fetch_bus_detail =(busId)=>async(dispatch)=>{
 }
 
 
-export const delete_bus_by_number =(busId)=>async(dispatch)=>{
+export const delete_bus_by_number =(bus)=>async(dispatch)=>{
   try{
 dispatch({type:BUS_DELETE_BEGIN});
-const {data}=await Auth.delete(`/bus/${busId}`);
+console.log("bus number in action "+bus);
+const {data}=await Auth.delete(`/bus/${bus}`);
     dispatch({type:BUS_DELETE_SUCCESS,payload:data})
   }
   catch(error){

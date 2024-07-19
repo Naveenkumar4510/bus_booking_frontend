@@ -42,18 +42,25 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { edit_bus_detail } from '../../../redux/action/bus';
+import { edit_bus_detail,fetch_bus_detail,delete_bus_by_number } from '../../../redux/action/bus';
 
 const EditBus = () => {
   const dispatch = useDispatch();
 
   // Select the bus details from the Redux store
-  const bus_details = useSelector((state) => state.bus_details);
+ const bus_details = useSelector((state) => state.bus_details);
+  const fetch_bus=useSelector((state)=>state.bus_fetch_state);
+  const delete_bus=useSelector((state)=>state.bus_delete_state);
+
+
   const { loading, error, bus_edit_details } = useSelector((state) => state.bus_edit_state);
 
   const handleEdit = (busId, newDetails) => {
     dispatch(edit_bus_detail(busId, newDetails));
+  
   };
+
+
 
 //   const handleDelete = (busId) => {
 //     dispatch(delete_bus_detail(busId));

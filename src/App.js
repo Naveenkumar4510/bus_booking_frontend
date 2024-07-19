@@ -13,11 +13,12 @@ import PublicLayout from "./Layout/PublicLayout";
 import AddBus from "./Component/pages/Bus/AddBus";
 import ViewBus from "./Component/pages/Bus/ViewBus";
 import EditBus from "./Component/pages/Bus/EditBus";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div className="App">
-     
+     <ToastContainer />
       <Routes>
         <Route element={<PublicLayout/>  } path="">
         
