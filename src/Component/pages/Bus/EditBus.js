@@ -44,27 +44,49 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { edit_bus_detail,fetch_bus_detail,delete_bus_by_number } from '../../../redux/action/bus';
 
+import { toast } from 'react-toastify';
+
 const EditBus = () => {
   const dispatch = useDispatch();
 
   // Select the bus details from the Redux store
- const bus_details = useSelector((state) => state.bus_details);
+  const bus_details = useSelector((state) => state.bus_details);
   const fetch_bus=useSelector((state)=>state.bus_fetch_state);
   const delete_bus=useSelector((state)=>state.bus_delete_state);
 
 
-  const { loading, error, bus_edit_details } = useSelector((state) => state.bus_edit_state);
+  // const { bus_details, loading, error } = useSelector((state) => state.bus_fetch_state);
+  const [busData, setBusData] = useState({
+    busName: '',
+    busNumber: '',
+    source: '',
+    destination: '',
+    departureTime: '',
+    arrivalTime: ''
+  });
 
-  const handleEdit = (busId, newDetails) => {
-    dispatch(edit_bus_detail(busId, newDetails));
-  
+  useEffect(() => {
+    dispatch(fetch_bus_detail(id)).then((data) => setBusData(data));
+  }, [dispatch, id]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBusData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-
-
-//   const handleDelete = (busId) => {
-//     dispatch(delete_bus_detail(busId));
-//   };
+  const handleSave = () => {
+    dispatch(edit_bus_detail(id, busData))
+      .then(() => {
+        toast.success('Bus updated successfully');
+        history.push('/');
+      })
+      .catch(() => {
+        toast.error('Failed to update the bus');
+      });
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -75,35 +97,56 @@ const EditBus = () => {
   }
 
   return (
-    <div className="flex flex-col">
-      {bus_details && bus_details.length > 0 ? (
-        bus_details.map((bus) => (
-          <div key={bus.id} className="p-4 border rounded shadow-md mb-4">
-            <ul>
-              <li>{bus.busName}</li>
-              <li>{bus.busNumber}</li>
-              <li>{bus.source}</li>
-              <li>{bus.destination}</li>
-              <li>{bus.arrivalTime}</li>
-              <li>{bus.departureTime}</li>
-            </ul>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-              onClick={() => handleEdit(bus.id, { /* new details here */ })}
-            >
-              Edit
-            </button>
-            {/* <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
-              onClick={() => handleDelete(bus.id)}
-            >
-              Delete
-            </button> */}
-          </div>
-        ))
-      ) : (
-        <p>No buses available</p>
-      )}
+    <div className="mx-auto container">
+
+<h2>Edit Bus</h2>
+      <div className="bg-white shadow-md rounded-lg p-4">
+        <input
+          type="text"
+          name="busName"
+          value={busData.busName || ''}
+          onChange={handleChange}
+          placeholder="Bus Name"
+        />
+        <input
+          type="text"
+          name="busNumber"
+          value={busData.busNumber || ''}
+          onChange={handleChange}
+          placeholder="Bus Number"
+        />
+        <input
+          type="text"
+          name="source"
+          value={busData.source || ''}
+          onChange={handleChange}
+          placeholder="Source"
+        />
+        <input
+          type="text"
+          name="destination"
+          value={busData.destination || ''}
+          onChange={handleChange}
+          placeholder="Destination"
+        />
+        <input
+          type="datetime-local"
+          name="departureTime"
+          value={busData.departureTime || ''}
+          onChange={handleChange}
+          placeholder="Departure Time"
+        />
+        <input
+          type="datetime-local"
+          name="arrivalTime"
+          value={busData.arrivalTime || ''}
+          onChange={handleChange}
+          placeholder="Arrival Time"
+        />
+        <button onClick={handleSave}>Save</button>
+      </div>
+     
+     
     </div>
   );
 };
