@@ -46,7 +46,7 @@ function App() {
         </Route>
 
         
-        <Route element={<EditBus />} path="/editbus">
+        <Route element={<EditBus />} path="/editbus/:busnumber">
           {" "}
         </Route>
       </Routes>

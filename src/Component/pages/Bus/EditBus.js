@@ -39,23 +39,20 @@
 // };
 
 // export default EditBus;
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { edit_bus_detail,fetch_bus_detail,delete_bus_by_number } from '../../../redux/action/bus';
-
+import { useParams, useNavigate } from 'react-router-dom';
+import { edit_bus_detail, fetch_bus_detail } from '../../../redux/action/bus';
 import { toast } from 'react-toastify';
 
 const EditBus = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+const {busNumber}=useParams();
 
-  // Select the bus details from the Redux store
   const bus_details = useSelector((state) => state.bus_details);
-  const fetch_bus=useSelector((state)=>state.bus_fetch_state);
-  const delete_bus=useSelector((state)=>state.bus_delete_state);
+  const bus_edit_details = useSelector((state) => state.bus_fetch_state);
 
-
-  // const { bus_details, loading, error } = useSelector((state) => state.bus_fetch_state);
   const [busData, setBusData] = useState({
     busName: '',
     busNumber: '',
@@ -66,9 +63,20 @@ const EditBus = () => {
   });
 
   useEffect(() => {
-    dispatch(fetch_bus_detail(id)).then((data) => setBusData(data));
-  }, [dispatch, id]);
+    if (busNumber) {
+      dispatch(fetch_bus_detail(busNumber)); // Fetch bus details based on busNumber
+    }
+  }, [busNumber, dispatch] );
 
+  useEffect(()=>{
+    setBusData(
+      {
+        busName:bus_edit_details.busName,
+        busNumber:bus_edit_details.busNumber
+      }
+    )
+  })
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBusData((prevData) => ({
@@ -77,37 +85,38 @@ const EditBus = () => {
     }));
   };
 
-  const handleSave = () => {
-    dispatch(edit_bus_detail(id, busData))
-      .then(() => {
-        toast.success('Bus updated successfully');
-        history.push('/');
-      })
-      .catch(() => {
-        toast.error('Failed to update the bus');
-      });
-  };
+  // const handleSave = () => {
+  //   // dispatch(edit_bus_detail(id, busData))
+  //     .then(() => {
+  //       toast.success('Bus updated successfully');
+  //       navigate('/');
+  //     })
+  //     .catch(() => {
+  //       toast.error('Failed to update the bus');
+  //     });
+  // };
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
 
-  if (error) {
-    return <p>Error loading bus details</p>;
-  }
+  // if (error) {
+  //   return <p>Error loading bus details</p>;
+  // }
 
   return (
     <div className="mx-auto container">
-
-<h2>Edit Bus</h2>
-      <div className="bg-white shadow-md rounded-lg p-4">
+      <h2>Edit Bus</h2>
+      <div className="bg-white shadow-md rounded-lg flex flex-col gap-3 justify-center p-4">
         <input
           type="text"
           name="busName"
           value={busData.busName || ''}
           onChange={handleChange}
           placeholder="Bus Name"
+         
         />
+        
         <input
           type="text"
           name="busNumber"
@@ -143,10 +152,8 @@ const EditBus = () => {
           onChange={handleChange}
           placeholder="Arrival Time"
         />
-        <button onClick={handleSave}>Save</button>
+        <button >Save</button>
       </div>
-     
-     
     </div>
   );
 };

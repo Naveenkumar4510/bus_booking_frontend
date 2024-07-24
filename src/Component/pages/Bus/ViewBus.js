@@ -2,19 +2,25 @@ import React, { useEffect } from "react";
 import { bus_detailAction ,fetch_bus_detail,delete_bus_by_number,edit_bus_detail} from "../../../redux/action/bus";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const ViewBus = () => {
   const dispatch = useDispatch();
 
   const { bus_details } = useSelector((state) => state.bus_details);
   const {fetch_bus}=useSelector((state)=>state.bus_fetch_state);
   const {delete_bus}=useSelector((state)=>state.bus_delete_state);
+  const navigate=useNavigate();
 
   useEffect(() => {
     dispatch(bus_detailAction());
   }, []);
+
+
   const handleEdit = (bus) => {
+    console.log(bus)
     // Dispatch the edit action here
-    dispatch(edit_bus_detail(bus));
+    dispatch(fetch_bus_detail(bus));
+    navigate(`/editbus/${bus}`)
   };
 
   const handleDelete = (busNumber) => {
@@ -65,7 +71,7 @@ return (
               <li>{bus.departureTime}</li>
               <div className="flex justify-end mt-4">
               <button
-                onClick={() => handleEdit(bus.id)}
+                onClick={() => handleEdit(bus.busNumber)}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
               >
                 Edit
