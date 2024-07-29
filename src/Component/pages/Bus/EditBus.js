@@ -39,6 +39,151 @@
 // };
 
 // export default EditBus;
+
+
+// import React, { useState, useEffect } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { useParams, useNavigate } from 'react-router-dom';
+// import { edit_bus_detail, fetch_bus_detail } from '../../../redux/action/bus';
+// import { toast } from 'react-toastify';
+
+// const EditBus = () => {
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
+// const {busNumber}=useParams();
+
+//   const bus_details = useSelector((state) => state.bus_details);
+//   const bus_edit_details = useSelector((state) => state.bus_fetch_state);
+
+//   const [busData, setBusData] = useState({
+//     busName: '',
+//     busNumber: '',
+//     source: '',
+//     destination: '',
+//     departureTime: '',
+//     arrivalTime: ''
+//   });
+
+//   console.log(bus_edit_details)
+
+//   useEffect(() => {
+//     if (busNumber) {
+//       dispatch(fetch_bus_detail(busNumber)); // Fetch bus details based on busNumber
+//     }
+//   }, [busNumber, dispatch] );
+
+//   useEffect(()=>{
+//     setBusData({
+//       ...busData,
+//       busNumber:bus_edit_details.bus_fetch_details.busNumber,
+//       busName:bus_edit_details.bus_fetch_details.busName,
+//       source:bus_edit_details.bus_fetch_details.source,
+//       destination:bus_edit_details.bus_fetch_details.destination,
+//       departureTime:bus_edit_details.bus_fetch_details.departureTime,
+//       arrivalTime:bus_edit_details.bus_fetch_details.arrivalTime
+
+//    } )
+//   },[bus_edit_details])
+ 
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setBusData((prevData) => ({
+//       ...prevData,
+//       [name]: value,
+//     }));
+//   };
+
+//   const handleSave = (e) => {
+//     e.preventDefault();
+//     console.log("updatd busnumber"+busNumber);
+//     console.log("updatebusdata"+busData);
+//     dispatch(edit_bus_detail(busNumber, busData))
+
+//       .then(() => {
+//         toast.success('Bus updated successfully');
+//         navigate('/');
+//       })
+//       .catch(() => {
+//         toast.error('Failed to update the bus');
+//       });
+//   };
+
+//   // const handleSave = () => {
+//   //   // dispatch(edit_bus_detail(id, busData))
+//   //     .then(() => {
+//   //       toast.success('Bus updated successfully');
+//   //       navigate('/');
+//   //     })
+//   //     .catch(() => {
+//   //       toast.error('Failed to update the bus');
+//   //     });
+//   // };
+
+//   // if (loading) {
+//   //   return <p>Loading...</p>;
+//   // }
+
+//   // if (error) {
+//   //   return <p>Error loading bus details</p>;
+//   // }
+
+//   return (
+//     <div className="mx-auto container">
+//       <h2>Edit Bus</h2>
+//       <div className="bg-white shadow-md rounded-lg flex flex-col gap-3 justify-center p-4">
+//         <input
+//           type="text"
+//           name="busName"
+//           value={busData.busName || ''}
+//           onChange={handleChange}
+//           placeholder="Bus Name"
+         
+//         />
+        
+//         <input
+//           type="text"
+//           name="busNumber"
+//           value={busData.busNumber || ''}
+//           onChange={handleChange}
+//           placeholder="Bus Number"
+//         />
+//         <input
+//           type="text"
+//           name="source"
+//           value={busData.source || ''}
+//           onChange={handleChange}
+//           placeholder="Source"
+//         />
+//         <input
+//           type="text"
+//           name="destination"
+//           value={busData.destination || ''}
+//           onChange={handleChange}
+//           placeholder="Destination"
+//         />
+//         <input
+//           type="datetime-local"
+//           name="departureTime"
+//           value={busData.departureTime || ''}
+//           onChange={handleChange}
+//           placeholder="Departure Time"
+//         />
+//         <input
+//           type="datetime-local"
+//           name="arrivalTime"
+//           value={busData.arrivalTime || ''}
+//           onChange={handleChange}
+//           placeholder="Arrival Time"
+//         />
+//         <button onClick={handleSave}>Save</button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default EditBus;
+
+
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -48,11 +193,10 @@ import { toast } from 'react-toastify';
 const EditBus = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-const {busNumber}=useParams();
+  const { busNumber } = useParams();
 
-  const bus_details = useSelector((state) => state.bus_details);
   const bus_edit_details = useSelector((state) => state.bus_fetch_state);
-
+  
   const [busData, setBusData] = useState({
     busName: '',
     busNumber: '',
@@ -64,19 +208,23 @@ const {busNumber}=useParams();
 
   useEffect(() => {
     if (busNumber) {
-      dispatch(fetch_bus_detail(busNumber)); // Fetch bus details based on busNumber
+      dispatch(fetch_bus_detail(busNumber));
     }
-  }, [busNumber, dispatch] );
+  }, [busNumber, dispatch]);
 
-  useEffect(()=>{
-    setBusData(
-      {
-        busName:bus_edit_details.busName,
-        busNumber:bus_edit_details.busNumber
-      }
-    )
-  })
- 
+  useEffect(() => {
+    if (bus_edit_details && bus_edit_details.bus_fetch_details) {
+      setBusData({
+        busName: bus_edit_details.bus_fetch_details.busName || '',
+        busNumber: bus_edit_details.bus_fetch_details.busNumber || '',
+        source: bus_edit_details.bus_fetch_details.source || '',
+        destination: bus_edit_details.bus_fetch_details.destination || '',
+        departureTime: bus_edit_details.bus_fetch_details.departureTime || '',
+        arrivalTime: bus_edit_details.bus_fetch_details.arrivalTime || ''
+      });
+    }
+  }, [bus_edit_details]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBusData((prevData) => ({
@@ -85,24 +233,19 @@ const {busNumber}=useParams();
     }));
   };
 
-  // const handleSave = () => {
-  //   // dispatch(edit_bus_detail(id, busData))
-  //     .then(() => {
-  //       toast.success('Bus updated successfully');
-  //       navigate('/');
-  //     })
-  //     .catch(() => {
-  //       toast.error('Failed to update the bus');
-  //     });
-  // };
-
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
-
-  // if (error) {
-  //   return <p>Error loading bus details</p>;
-  // }
+  const handleSave = (e) => {
+    e.preventDefault();
+    console.log("Updated bus number:", busData.busNumber);
+    console.log("Updated bus data:", busData);
+    dispatch(edit_bus_detail(busData.busNumber, busData))
+      .then(() => {
+        toast.success('Bus updated successfully');
+        navigate('/');
+      })
+      .catch(() => {
+        toast.error('Failed to update the bus');
+      });
+  };
 
   return (
     <div className="mx-auto container">
@@ -111,51 +254,51 @@ const {busNumber}=useParams();
         <input
           type="text"
           name="busName"
-          value={busData.busName || ''}
+          value={busData.busName}
           onChange={handleChange}
           placeholder="Bus Name"
-         
         />
-        
         <input
           type="text"
           name="busNumber"
-          value={busData.busNumber || ''}
+          value={busData.busNumber}
           onChange={handleChange}
           placeholder="Bus Number"
+          disabled // Assuming busNumber shouldn't be editable
         />
         <input
           type="text"
           name="source"
-          value={busData.source || ''}
+          value={busData.source}
           onChange={handleChange}
           placeholder="Source"
         />
         <input
           type="text"
           name="destination"
-          value={busData.destination || ''}
+          value={busData.destination}
           onChange={handleChange}
           placeholder="Destination"
         />
         <input
           type="datetime-local"
           name="departureTime"
-          value={busData.departureTime || ''}
+          value={busData.departureTime}
           onChange={handleChange}
           placeholder="Departure Time"
         />
         <input
           type="datetime-local"
           name="arrivalTime"
-          value={busData.arrivalTime || ''}
+          value={busData.arrivalTime}
           onChange={handleChange}
           placeholder="Arrival Time"
         />
-        <button >Save</button>
+        <button onClick={handleSave}>Save</button>
       </div>
     </div>
   );
 };
 
 export default EditBus;
+
