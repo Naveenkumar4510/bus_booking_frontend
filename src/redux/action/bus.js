@@ -14,7 +14,14 @@ import {
   BUS_DELETE_ERROR,
   BUS_GET_BUS_BY_NO_BEGIN,
   BUS_GET_BUS_BY_NO_SUCCESS,
-  BUS_GET_BUS_BY_NO_ERROR
+  BUS_GET_BUS_BY_NO_ERROR,
+  GET_AVAILABLE_SEATS_BEGIN,
+  GET_AVAILABLE_SEATS_ERROR,
+
+  GET_AVAILABLE_SEATS_SUCCESS,
+  BUS_GET_BUS_BY_ID_BEGIN,
+  BUS_GET_BUS_BY_ID_ERROR,
+  BUS_GET_BUS_BY_ID_SUCCESS
   
 } from "../constant/bus/bus";
 import { Auth } from "../config";
@@ -56,6 +63,7 @@ export const edit_bus_detail =(busId,editData) =>async(dispatch)=>{
     const {data}=await Auth.put(`/bus/${busId}`,editData);
     dispatch({type:BUS_EDIT_SUCCESS,payload:data})
 
+
   }catch(error){
     dispatch({type:BUS_EDIT_ERROR})
   }
@@ -75,6 +83,19 @@ export const fetch_bus_detail =(busId)=>async(dispatch)=>{
 }
 
 
+export const fetch_bus_detail_byid =(busId)=>async(dispatch)=>{
+  try{
+    dispatch({type:BUS_GET_BUS_BY_ID_BEGIN});
+
+    const {data}=await Auth.get(`/bus/id/${busId}`);
+    dispatch({type:BUS_GET_BUS_BY_ID_SUCCESS,payload:data})
+  }
+  catch(error){
+    dispatch({type:BUS_GET_BUS_BY_ID_ERROR})
+  }
+}
+
+
 export const delete_bus_by_number =(bus)=>async(dispatch)=>{
   try{
 dispatch({type:BUS_DELETE_BEGIN});
@@ -84,5 +105,17 @@ const {data}=await Auth.delete(`/bus/${bus}`);
   }
   catch(error){
     dispatch({type:BUS_DELETE_ERROR})
+  }
+}
+
+
+export const get_available_seats =(busNumber)=>async(dispatch)=>{
+  try{
+    dispatch({type:GET_AVAILABLE_SEATS_BEGIN});
+    const {data}=await Auth.get(`/bus/availableSeats/${busNumber}`);
+    dispatch({type:GET_AVAILABLE_SEATS_SUCCESS,payload:data})
+  }
+  catch(error){
+    dispatch({type:GET_AVAILABLE_SEATS_ERROR})
   }
 }

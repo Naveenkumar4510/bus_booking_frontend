@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar.js";
 import Footer from "../Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import { bus_detailAction } from "../../redux/action/bus.js";
+import { bus_detailAction, get_available_seats } from "../../redux/action/bus.js";
 import { eventWrapper } from "@testing-library/user-event/dist/utils/index.js";
 import bus_img from '../../assets/home/Man buying bus ticket via terminal.jpg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -81,7 +82,13 @@ const Home = () => {
     console.log(filtered_data);
     setSearchPerformed(true);
   };
+const navigate=useNavigate();
 
+  const handleViewBus =(bus) =>{
+    console.log("view bus:"+bus);
+    dispatch(get_available_seats(bus));
+    navigate(`/seats/${bus}`)
+  }
  
 
   return (
@@ -137,6 +144,7 @@ const Home = () => {
                 <p>Source: {bus.source}</p>
                 <p>Destination: {bus.destination}</p>
                 <p>Bus Number: {bus.busNumber}</p>
+                <button className="bg-gray-200 p-4" onClick={()=>handleViewBus(bus.id)}>View</button>
                 {/* Add other bus details as needed */}
               </div>
             ))

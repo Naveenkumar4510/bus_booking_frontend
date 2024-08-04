@@ -15,6 +15,7 @@ import ViewBus from "./Component/pages/Bus/ViewBus";
 import EditBus from "./Component/pages/Bus/EditBus";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AvailableSeats from "./Component/pages/Bus/AvailableSeats";
 function App() {
   return (
     <div className="App">
@@ -47,6 +48,9 @@ function App() {
 
         
         <Route element={<EditBus />} path="/editbus/:busnumber">
+          {" "}
+        </Route>
+        <Route element={<AvailableSeats />} path="/seats/:busNumber">
           {" "}
         </Route>
       </Routes>
